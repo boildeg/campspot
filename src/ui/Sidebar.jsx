@@ -3,21 +3,29 @@ import Logo from "./Logo";
 import MainNav from "./MainNav";
 
 const StyledSidebar = styled.aside`
-  background-color: var(--color-grey-0);
-  padding: 3.2rem 2.4rem;
-  border-right: 1px solid var(--color-grey-100);
+  /* padding: 2.1rem 1.2rem; */
+  width: 23.2rem;
+  height: 100%;
 
-  grid-row: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: 3.2rem;
+  transition: all 0.3s ease;
+  grid-row: 1/-1;
+
+  &.collapse {
+    width: 6.4rem;
+  }
 `;
 
-function Sidebar() {
+const LogoWrapper = styled.div`
+  position: relative;
+`;
+
+function Sidebar({ isCollapsed }) {
   return (
-    <StyledSidebar>
-      <Logo />
-      <MainNav />
+    <StyledSidebar className={isCollapsed ? "collapse" : ""}>
+      <LogoWrapper>
+        <Logo isCollapsed={isCollapsed} />
+      </LogoWrapper>
+      <MainNav isCollapsed={isCollapsed} />
     </StyledSidebar>
   );
 }

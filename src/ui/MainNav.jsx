@@ -18,14 +18,13 @@ const StyledNavLink = styled(NavLink)`
   &:link,
   &:visited {
     display: flex;
+    width: 100%;
     align-items: center;
-    gap: 1.2rem;
-
+    padding: 1.2rem 2rem;
     color: var(--color-grey-600);
     font-size: 1.6rem;
     font-weight: 500;
-    padding: 1.2rem 2.4rem;
-    transition: all 0.3s;
+    position: relative;
   }
 
   /* This works because react-router places the active class on the active NavLink */
@@ -43,6 +42,7 @@ const StyledNavLink = styled(NavLink)`
     height: 2.4rem;
     color: var(--color-grey-400);
     transition: all 0.3s;
+    flex-shrink: 0;
   }
 
   &:hover svg,
@@ -51,38 +51,48 @@ const StyledNavLink = styled(NavLink)`
   &.active:visited svg {
     color: var(--color-brand-600);
   }
+
+  span {
+    opacity: ${(props) => (props.isCollapsed ? 0 : 1)};
+    transform: ${(props) =>
+      props.isCollapsed ? "translateX(-10px)" : "translateX(0)"};
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+    margin-left: 1.2rem;
+    visibility: ${(props) => (props.isCollapsed ? "hidden" : "visible")};
+  }
 `;
 
-function MainNav() {
+function MainNav({ isCollapsed }) {
   return (
     <nav>
       <NavList>
         <li>
-          <StyledNavLink to="/dashboard">
+          <StyledNavLink to="/dashboard" isCollapsed={isCollapsed}>
             <HiOutlineHome />
             <span>Home</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/bookings">
+          <StyledNavLink to="/bookings" isCollapsed={isCollapsed}>
             <HiOutlineCalendarDays />
             <span>Bookings</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/cabins">
+          <StyledNavLink to="/cabins" isCollapsed={isCollapsed}>
             <HiOutlineHomeModern />
             <span>Cabins</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/users">
+          <StyledNavLink to="/users" isCollapsed={isCollapsed}>
             <HiOutlineUsers />
             <span>Users</span>
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/settings">
+          <StyledNavLink to="/settings" isCollapsed={isCollapsed}>
             <HiOutlineCog6Tooth />
             <span>Settings</span>
           </StyledNavLink>
