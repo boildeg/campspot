@@ -6,6 +6,7 @@ const StyledHeader = styled.header`
   padding: 1.2rem 4.8rem;
   border-bottom: 1px solid var(--color-grey-100);
   position: relative;
+  min-height: 7rem;
 `;
 
 const CollapseButton = styled.button`
@@ -43,7 +44,7 @@ const CollapseIcon = styled.div`
   justify-content: center;
 `;
 
-function Header({ isCollapsed, handleToggle }) {
+function Header({ handleToggle }) {
   return (
     <StyledHeader>
       HEADER

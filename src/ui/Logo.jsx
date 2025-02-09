@@ -1,26 +1,25 @@
 import styled from "styled-components";
-import { HiOutlineHome } from "react-icons/hi2";
+import logo from "../assets/logo.png";
 
 const StyledLogo = styled.div`
   text-align: center;
-  height: 6.4rem;
+  height: 7rem;
   display: flex;
   align-items: center;
   /* justify-content: center; */
   gap: 1.6rem;
   padding-left: 1.6rem;
+
+  img {
+    height: 3rem;
+    width: 3rem;
+  }
 `;
 
 const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  & svg {
-    width: 3.2rem;
-    height: 3.2rem;
-    color: var(--color-brand-600);
-  }
 `;
 
 const Text = styled.h1`
@@ -40,8 +39,9 @@ function Logo({ isCollapsed }) {
   return (
     <StyledLogo isCollapsed={isCollapsed}>
       <Icon>
-        <HiOutlineHome />
+        <img src={logo} alt="Logo" />
       </Icon>
+
       {!isCollapsed && (
         <Text>
           Holi<span>vana</span>
