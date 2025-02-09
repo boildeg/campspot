@@ -17,7 +17,6 @@ const StyledSidebar = styled.aside`
 
 const LogoWrapper = styled.div`
   position: relative;
-  border-bottom: 1px solid var(--color-grey-100);
 `;
 
 function Sidebar({ isCollapsed }) {
