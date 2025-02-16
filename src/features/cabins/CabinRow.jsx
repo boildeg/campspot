@@ -41,6 +41,11 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+const TableRowActions = styled.div`
+  display: flex;
+  gap: 0.4rem;
+`;
+
 function CabinRow({ cabin }) {
   return (
     <TableRow role="row">
@@ -49,10 +54,14 @@ function CabinRow({ cabin }) {
       <div>{cabin.maxCapacity}</div>
       <Price>{formatCurrency(cabin.regularPrice)}</Price>
       <Discount>{formatCurrency(cabin.discount)}</Discount>
-      <div>
-        <Button variant="green">Edit</Button>
-        <Button variant="red">Delete</Button>
-      </div>
+      <TableRowActions>
+        <Button size="small" variant="primary">
+          Edit
+        </Button>
+        <Button size="small" variant="danger">
+          Delete
+        </Button>
+      </TableRowActions>
     </TableRow>
   );
 }
