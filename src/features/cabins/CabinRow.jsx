@@ -67,9 +67,9 @@ function CabinRow({ cabin }) {
       <Price>{formatCurrency(cabin.regularPrice)}</Price>
       <Discount>{formatCurrency(cabin.discount)}</Discount>
       <TableRowActions>
-        <Button size="small" variant="primary">
+        {/* <Button size="small" variant="primary">
           Edit
-        </Button>
+        </Button> */}
         <Button onClick={() => mutate(cabin.id)}>
           {isDeleting ? "Deleting" : "Delete"}
         </Button>
