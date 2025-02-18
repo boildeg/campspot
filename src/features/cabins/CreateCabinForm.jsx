@@ -48,7 +48,7 @@ function CreateCabinForm() {
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data) {
-    console.log("data", data);
+    console.log(data);
   }
 
   return (
