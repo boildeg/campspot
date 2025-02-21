@@ -51,7 +51,6 @@ function CreateCabinForm() {
   const queryClient = useQueryClient();
 
   const { isLoading: isCreating, mutate } = useMutation({
-    //this receives an object with a mutate function and then pass the success
     mutationFn: createCabin,
     onSuccess: () => {
       toast.success("New cabin successfully created");
