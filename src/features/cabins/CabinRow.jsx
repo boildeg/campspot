@@ -3,6 +3,7 @@ import { formatCurrency } from "../../utils/helpers";
 import Button from "../../ui/Button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
+import SpinnerMini from "../../ui/SpinnerMini";
 import toast from "react-hot-toast";
 const TableRow = styled.div`
   display: grid;
@@ -51,8 +52,12 @@ const TableRowActions = styled.div`
 function CabinRow({ cabin }) {
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
+  const { isLoading: isDeleting, mutate: deleteMutate } = useMutation({
+    mutationFn: async (id) => {
+      // Add artificial delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return deleteCabin(id);
+    },
     onSuccess: () => {
       toast.success("Cabin deleted successfully");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
@@ -70,8 +75,18 @@ function CabinRow({ cabin }) {
         {/* <Button size="small" variant="primary">
           Edit
         </Button> */}
-        <Button onClick={() => mutate(cabin.id)}>
-          {isDeleting ? "Deleting" : "Delete"}
+        <Button
+          onClick={() => deleteMutate(cabin.id)}
+          className="display: flex; align-items: center; gap: 0.4rem;"
+        >
+          {isDeleting ? (
+            <>
+              <SpinnerMini />
+              Deleting
+            </>
+          ) : (
+            "Delete"
+          )}
         </Button>
       </TableRowActions>
     </TableRow>

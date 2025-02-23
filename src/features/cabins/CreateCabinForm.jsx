@@ -6,9 +6,9 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
-import { createCabin } from "@/services/apiCabins";
-import FormRow from "@/ui/FormRow";
-import SpinnerMini from "@/ui/SpinnerMini";
+import { createCabin } from "../../services/apiCabins";
+import FormRow from "../../ui/FormRow";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function CreateCabinForm() {
   const { register, handleSubmit, reset, getValues, formState } = useForm();
@@ -128,8 +128,17 @@ function CreateCabinForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>
-          {isCreating ? <SpinnerMini /> : "Add cabin"}
+        <Button
+          disabled={isCreating}
+          className="display: flex; align-items: center; gap: 0.4rem;"
+        >
+          {isCreating ? (
+            <>
+              <SpinnerMini /> Adding cabin...
+            </>
+          ) : (
+            "Add cabin"
+          )}
         </Button>
       </FormRow>
     </Form>
