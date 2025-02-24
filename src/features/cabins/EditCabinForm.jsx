@@ -13,7 +13,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { createCabin } from "../../services/apiCabins";
 
 function EditCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const { register, handleSubmit, reset, getValues, formState } = useForm({});
   const queryClient = useQueryClient();
   const { errors } = formState;
 
@@ -28,10 +28,11 @@ function EditCabinForm() {
   });
 
   function onSubmit(data) {
-    mutate({
-      ...data,
-      image: data.image[0],
-    });
+    // mutate({
+    //   ...data,
+    //   image: data.image[0],
+    // });
+    console.log(data);
   }
 
   function onError(errors) {
@@ -121,7 +122,7 @@ function EditCabinForm() {
         <FileInput
           id="image"
           accept="image/*"
-          {...register("image", { required: "This field is required" })}
+          {...register("image")}
           error={errors?.image?.message}
         />
       </FormRow>
