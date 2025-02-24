@@ -104,7 +104,7 @@ function CabinRow({ cabin }) {
           </Button>
         </TableRowActions>
       </TableRow>
-      {isEditing && <EditCabinForm />}
+      {isEditing && <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />}
     </>
   );
 }

@@ -10,28 +10,32 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-import { createCabin } from "../../services/apiCabins";
+import { editCabin } from "../../services/apiCabins";
 
-function EditCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+function EditCabinForm({ cabin, setIsEditing }) {
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: cabin,
+  });
   const queryClient = useQueryClient();
   const { errors } = formState;
 
-  const { isLoading: isCreating, mutate } = useMutation({
-    mutationFn: createCabin,
+  const { isLoading: isEditing, mutate } = useMutation({
+    mutationFn: editCabin,
     onSuccess: () => {
-      toast.success("New cabin successfully created");
+      toast.success("Cabin successfully updated");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       reset();
+      setIsEditing(false);
     },
     onError: (err) => toast.error(err.message),
   });
 
   function onSubmit(data) {
-    mutate({
-      ...data,
-      image: data.image[0],
-    });
+    // Only send image if a new one was selected
+    const image = typeof data.image === "string" ? null : data.image[0];
+
+    mutate({ ...data, image });
+    console.log(data);
   }
 
   function onError(errors) {
@@ -46,7 +50,7 @@ function EditCabinForm() {
           id="name"
           {...register("name", { required: "This field is required" })}
           error={errors?.name?.message}
-          disabled={isCreating}
+          disabled={isEditing}
         />
       </FormRow>
 
@@ -63,7 +67,7 @@ function EditCabinForm() {
             },
           })}
           error={errors?.maxCapacity?.message}
-          disabled={isCreating}
+          disabled={isEditing}
         />
       </FormRow>
 
@@ -80,7 +84,7 @@ function EditCabinForm() {
             },
           })}
           error={errors?.regularPrice?.message}
-          disabled={isCreating}
+          disabled={isEditing}
         />
       </FormRow>
 
@@ -100,7 +104,7 @@ function EditCabinForm() {
             },
           })}
           error={errors?.discount?.message}
-          disabled={isCreating}
+          disabled={isEditing}
         />
       </FormRow>
 
@@ -131,10 +135,10 @@ function EditCabinForm() {
           Cancel
         </Button>
         <Button
-          disabled={isCreating}
+          disabled={isEditing}
           className="display: flex; align-items: center; gap: 0.4rem;"
         >
-          {isCreating ? (
+          {isEditing ? (
             <>
               <SpinnerMini /> Editing cabin...
             </>
