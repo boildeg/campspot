@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import { formatCurrency } from "../../utils/helpers";
-import Button from "../../ui/Button";
+import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { formatCurrency } from "../../utils/helpers";
 import { deleteCabin } from "../../services/apiCabins";
+
+import Button from "../../ui/Button";
 import SpinnerMini from "../../ui/SpinnerMini";
 import toast from "react-hot-toast";
+import EditCabinForm from "./EditCabinForm";
+
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -30,16 +34,16 @@ const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: "Inter", sans-serif;
 `;
 
 const Price = styled.div`
-  font-family: "Sono";
+  font-family: "Inter", sans-serif;
   font-weight: 600;
 `;
 
 const Discount = styled.div`
-  font-family: "Sono";
+  font-family: "Inter", sans-serif;
   font-weight: 500;
   color: var(--color-green-700);
 `;
@@ -50,6 +54,7 @@ const TableRowActions = styled.div`
 `;
 
 function CabinRow({ cabin }) {
+  const [isEditing, setIsEditing] = useState(false);
   const queryClient = useQueryClient();
 
   const { isLoading: isDeleting, mutate: deleteMutate } = useMutation({
@@ -65,31 +70,42 @@ function CabinRow({ cabin }) {
     onError: (error) => toast.error(error.message),
   });
   return (
-    <TableRow role="row">
-      <Img src={cabin.image} />
-      <Cabin>{cabin.name}</Cabin>
-      <div>Fits up to {cabin.maxCapacity} guests</div>
-      <Price>{formatCurrency(cabin.regularPrice)}</Price>
-      <Discount>{formatCurrency(cabin.discount)}</Discount>
-      <TableRowActions>
-        {/* <Button size="small" variant="primary">
+    <>
+      <TableRow role="row">
+        <Img src={cabin.image} />
+        <Cabin>{cabin.name}</Cabin>
+        <div>Fits up to {cabin.maxCapacity} guests</div>
+        <Price>{formatCurrency(cabin.regularPrice)}</Price>
+        <Discount>{formatCurrency(cabin.discount)}</Discount>
+        <TableRowActions>
+          {/* <Button size="small" variant="primary">
           Edit
         </Button> */}
-        <Button
-          onClick={() => deleteMutate(cabin.id)}
-          className="display: flex; align-items: center; gap: 0.4rem;"
-        >
-          {isDeleting ? (
-            <>
-              <SpinnerMini />
-              Deleting
-            </>
-          ) : (
-            "Delete"
-          )}
-        </Button>
-      </TableRowActions>
-    </TableRow>
+
+          <Button
+            onClick={() => setIsEditing(!isEditing)}
+            variant="primary"
+            size="small"
+          >
+            {isEditing ? "Cancel" : "Edit"}
+          </Button>
+          <Button
+            onClick={() => deleteMutate(cabin.id)}
+            className="display: flex; align-items: center; gap: 0.4rem;"
+          >
+            {isDeleting ? (
+              <>
+                <SpinnerMini />
+                Deleting
+              </>
+            ) : (
+              "Delete"
+            )}
+          </Button>
+        </TableRowActions>
+      </TableRow>
+      {isEditing && <EditCabinForm />}
+    </>
   );
 }
 export default CabinRow;
