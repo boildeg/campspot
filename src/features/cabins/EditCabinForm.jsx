@@ -13,7 +13,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import { createCabin } from "../../services/apiCabins";
 
 function EditCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm({});
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
   const queryClient = useQueryClient();
   const { errors } = formState;
 
@@ -28,11 +28,10 @@ function EditCabinForm() {
   });
 
   function onSubmit(data) {
-    // mutate({
-    //   ...data,
-    //   image: data.image[0],
-    // });
-    console.log(data);
+    mutate({
+      ...data,
+      image: data.image[0],
+    });
   }
 
   function onError(errors) {
