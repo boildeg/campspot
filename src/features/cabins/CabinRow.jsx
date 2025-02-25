@@ -28,6 +28,7 @@ const Img = styled.img`
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
+  padding-left: 0.5rem;
 `;
 
 const Cabin = styled.div`
