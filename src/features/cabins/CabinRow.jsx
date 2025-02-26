@@ -79,10 +79,6 @@ function CabinRow({ cabin }) {
         <Price>{formatCurrency(cabin.regularPrice)}</Price>
         <Discount>{formatCurrency(cabin.discount)}</Discount>
         <TableRowActions>
-          {/* <Button size="small" variant="primary">
-          Edit
-        </Button> */}
-
           <Button
             onClick={() => setIsEditing(!isEditing)}
             variant="primary"
