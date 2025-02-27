@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-
+import { useEditCabin } from "./useEditCabin";
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -10,31 +8,19 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-import { editCabin } from "../../services/apiCabins";
-
 function EditCabinForm({ cabin, setIsEditing }) {
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: cabin,
   });
-  const queryClient = useQueryClient();
   const { errors } = formState;
 
-  const { isLoading: isEditing, mutate } = useMutation({
-    mutationFn: editCabin,
-    onSuccess: () => {
-      toast.success("Cabin successfully updated");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-      setIsEditing(false);
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isEditing, editMutate } = useEditCabin({ cabin, setIsEditing });
 
   function onSubmit(data) {
     // Only send image if a new one was selected
     const image = typeof data.image === "string" ? null : data.image[0];
 
-    mutate({ ...data, image });
+    editMutate({ ...data, image }, { onSuccess: () => reset() });
     console.log(data);
   }
 
