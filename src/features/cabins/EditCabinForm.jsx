@@ -21,7 +21,7 @@ function EditCabinForm({ cabin, setIsEditing }) {
     const image = typeof data.image === "string" ? null : data.image[0];
 
     editMutate({ ...data, image }, { onSuccess: () => reset() });
-    console.log(data);
+    // console.log(data);
   }
 
   function onError(errors) {
