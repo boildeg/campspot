@@ -10,28 +10,25 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-import { createCabin } from "../../services/apiCabins";
+import { useCreateCabin } from "./useCreateCabin";
 
 function CreateCabinForm() {
   const { register, handleSubmit, reset, getValues, formState } = useForm();
-  const queryClient = useQueryClient();
   const { errors } = formState;
-
-  const { isLoading: isCreating, mutate } = useMutation({
-    mutationFn: createCabin,
-    onSuccess: () => {
-      toast.success("New cabin successfully created");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isCreating, createMutate } = useCreateCabin();
 
   function onSubmit(data) {
-    mutate({
-      ...data,
-      image: data.image[0],
-    });
+    createMutate(
+      {
+        ...data,
+        image: data.image[0],
+      },
+      {
+        onSuccess: () => {
+          reset();
+        },
+      }
+    );
   }
 
   function onError(errors) {
