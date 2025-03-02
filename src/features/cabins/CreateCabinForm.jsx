@@ -12,7 +12,7 @@ import SpinnerMini from "../../ui/SpinnerMini";
 
 import { useCreateCabin } from "./useCreateCabin";
 
-function CreateCabinForm() {
+function CreateCabinForm({ onCloseModal }) {
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const { errors } = formState;
   const { isCreating, createMutate } = useCreateCabin();
@@ -26,6 +26,7 @@ function CreateCabinForm() {
       {
         onSuccess: () => {
           reset();
+          onCloseModal?.();
         },
       }
     );
@@ -36,7 +37,10 @@ function CreateCabinForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
       <FormRow label="Cabin details" error={errors?.name?.message}>
         <Input
           type="text"
@@ -124,7 +128,11 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
           Cancel
         </Button>
         <Button

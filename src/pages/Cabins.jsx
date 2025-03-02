@@ -1,13 +1,10 @@
-import { useState } from "react";
-import Heading from "@/ui/Heading";
-import Row from "@/ui/Row";
-import CabinTable from "@/features/cabins/CabinTable";
-import CreateCabinForm from "@/features/cabins/CreateCabinForm";
-import Button from "@/ui/Button";
+// @ts-nocheck
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+import CabinTable from "../features/cabins/CabinTable";
+import AddCabin from "../features/cabins/AddCabin";
 
 function Cabins() {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <Row type="horizontal">
@@ -15,10 +12,7 @@ function Cabins() {
       </Row>
       <Row>
         <CabinTable />
-        <Button onClick={() => setIsOpen((isOpen) => !isOpen)}>
-          Add new cabin
-        </Button>
-        {isOpen && <CreateCabinForm />}
+        <AddCabin />
       </Row>
     </>
   );

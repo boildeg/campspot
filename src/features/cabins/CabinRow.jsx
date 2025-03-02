@@ -6,7 +6,7 @@ import Button from "../../ui/Button";
 import SpinnerMini from "../../ui/SpinnerMini";
 import EditCabinForm from "./EditCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
-
+import Modal from "../../ui/Modal";
 const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -94,7 +94,11 @@ function CabinRow({ cabin }) {
           </Button>
         </TableRowActions>
       </TableRow>
-      {isEditing && <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />}
+      {isEditing && (
+        <Modal>
+          <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
+        </Modal>
+      )}
     </>
   );
 }
