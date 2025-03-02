@@ -73,7 +73,10 @@ function CabinRow({ cabin }) {
         </Discount>
         <TableRowActions>
           <Button
-            onClick={() => setIsEditing(!isEditing)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(!isEditing);
+            }}
             variant="primary"
             size="small"
           >
@@ -95,7 +98,7 @@ function CabinRow({ cabin }) {
         </TableRowActions>
       </TableRow>
       {isEditing && (
-        <Modal>
+        <Modal onClose={() => setIsEditing(false)}>
           <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
         </Modal>
       )}

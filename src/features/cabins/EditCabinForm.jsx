@@ -117,7 +117,11 @@ function EditCabinForm({ cabin, setIsEditing }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => setIsEditing(false)}
+        >
           Cancel
         </Button>
         <Button
