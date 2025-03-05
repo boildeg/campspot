@@ -1,9 +1,15 @@
 {
   "extends": ["react-app", "eslint:recommended"],
   "rules": {
-    "no-unused-vars": "warn",
     "no-undef": "warn",
     "no-undef-init": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
 
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn"

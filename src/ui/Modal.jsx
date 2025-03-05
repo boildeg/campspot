@@ -55,14 +55,14 @@ function Modal({ children, onClose }) {
   const ref = useOutsideClick(onClose);
 
   return (
-    <Overlay>
+    <>
       <StyledModal ref={ref}>
         <Button onClick={onClose}>
           <HiXMark />
         </Button>
         {children}
       </StyledModal>
-    </Overlay>
+    </>
   );
 }
 
