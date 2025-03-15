@@ -6,9 +6,10 @@ import Button from "../../ui/Button";
 import SpinnerMini from "../../ui/SpinnerMini";
 import EditCabinForm from "./EditCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
-import Modal from "../../ui/Modal";
+import Modal from "../../ui/Modal-v2";
 import Table from "../../ui/Table";
-
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import { HiTrash } from "react-icons/hi2";
 // const TableRow = styled.div`
 //   display: grid;
 //   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -74,36 +75,36 @@ function CabinRow({ cabin }) {
           )}
         </Discount>
         <TableRowActions>
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsEditing(!isEditing);
-            }}
-            variant="primary"
-            size="small"
-          >
-            {isEditing ? "Cancel" : "Edit"}
-          </Button>
-          <Button
-            onClick={() => deleteMutate(cabin.id)}
-            className="display: flex; align-items: center; gap: 0.4rem;"
-          >
-            {isDeleting ? (
-              <>
-                <SpinnerMini />
-                Deleting
-              </>
-            ) : (
-              "Delete"
-            )}
-          </Button>
+          <Modal>
+            <Modal.Open opens="delete-cabin">
+              <Button className="display: flex; align-items: center; gap: 0.4rem;">
+                <HiTrash />
+              </Button>
+            </Modal.Open>
+            <Modal.Window name="delete-cabin">
+              <ConfirmDelete
+                resource="cabin"
+                onConfirm={() => deleteMutate(cabin.id)}
+                disabled={isDeleting}
+              />
+            </Modal.Window>
+          </Modal>
+
+          <Modal>
+            <Modal.Open opens="edit-cabin">
+              <Button>Edit</Button>
+            </Modal.Open>
+            <Modal.Window name="edit-cabin">
+              <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
+            </Modal.Window>
+          </Modal>
         </TableRowActions>
       </Table.Row>
-      {isEditing && (
+      {/* {isEditing && (
         <Modal onClose={() => setIsEditing(false)}>
           <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
         </Modal>
-      )}
+      )} */}
     </>
   );
 }

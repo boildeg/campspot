@@ -8,7 +8,7 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import SpinnerMini from "../../ui/SpinnerMini";
 
-function EditCabinForm({ cabin, setIsEditing }) {
+function EditCabinForm({ cabin, setIsEditing, onCloseModal }) {
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: cabin,
   });
@@ -120,7 +120,7 @@ function EditCabinForm({ cabin, setIsEditing }) {
         <Button
           variation="secondary"
           type="reset"
-          onClick={() => setIsEditing(false)}
+          onClick={() => onCloseModal?.()}
         >
           Cancel
         </Button>
