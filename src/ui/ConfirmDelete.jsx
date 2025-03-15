@@ -20,10 +20,13 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
+function ConfirmDelete({ resource, onConfirm, disabled, onCloseModal }) {
   function handleConfirmClick() {
     onConfirm?.();
-    closeModal?.();
+    onCloseModal?.();
+  }
+  function handleCloseModal() {
+    onCloseModal?.();
   }
 
   return (
@@ -35,7 +38,7 @@ function ConfirmDelete({ resource, onConfirm, disabled, closeModal }) {
       </p>
 
       <div>
-        <Button variation="secondary" onClick={closeModal}>
+        <Button variation="secondary" onClick={handleCloseModal}>
           Cancel
         </Button>
         <Button

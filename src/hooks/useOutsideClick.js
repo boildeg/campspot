@@ -10,8 +10,8 @@ const useOutsideClick = (handler) => {
       }
     }
 
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    document.addEventListener("click", handleClick, true);
+    return () => document.removeEventListener("click", handleClick, true);
   }, [handler]);
 
   // Re-enable the Escape key handler
@@ -21,8 +21,8 @@ const useOutsideClick = (handler) => {
         handler();
       }
     }
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
   }, [handler]);
 
   return ref;
