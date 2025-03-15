@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import CabinTable from "../features/cabins/CabinTable";
+import CabinTable from "../features/cabins/CabinTable-v2";
 import AddCabin from "../features/cabins/AddCabin";
 
 function Cabins() {

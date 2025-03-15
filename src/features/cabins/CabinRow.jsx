@@ -7,17 +7,19 @@ import SpinnerMini from "../../ui/SpinnerMini";
 import EditCabinForm from "./EditCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
 import Modal from "../../ui/Modal";
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
+import Table from "../../ui/Table";
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+// const TableRow = styled.div`
+//   display: grid;
+//   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
+//   column-gap: 2.4rem;
+//   align-items: center;
+//   padding: 1.4rem 2.4rem;
+
+//   &:not(:last-child) {
+//     border-bottom: 1px solid var(--color-grey-100);
+//   }
+// `;
 
 const Img = styled.img`
   display: block;
@@ -59,7 +61,7 @@ function CabinRow({ cabin }) {
 
   return (
     <>
-      <TableRow role="row ">
+      <Table.Row>
         <Img src={cabin.image} />
         <Cabin>{cabin.name}</Cabin>
         <div>Fits up to {cabin.maxCapacity} guests</div>
@@ -96,7 +98,7 @@ function CabinRow({ cabin }) {
             )}
           </Button>
         </TableRowActions>
-      </TableRow>
+      </Table.Row>
       {isEditing && (
         <Modal onClose={() => setIsEditing(false)}>
           <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
