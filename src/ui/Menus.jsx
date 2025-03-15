@@ -1,6 +1,11 @@
+import { createContext, useContext, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
+import useOutsideClick from "../hooks/useOutsideClick";
 
-const StyledMenu = styled.div`
+const Menu = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -26,14 +31,14 @@ const StyledToggle = styled.button`
 `;
 
 const StyledList = styled.ul`
-  position: fixed;
-
+  position: absolute;
+  z-index: 1;
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
-
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 20rem;
 `;
 
 const StyledButton = styled.button`
@@ -60,3 +65,93 @@ const StyledButton = styled.button`
     transition: all 0.3s;
   }
 `;
+
+const MenusContext = createContext();
+
+export { MenusContext };
+
+function Menus({ children }) {
+  const [openId, setOpenId] = useState("");
+
+  const close = () => setOpenId("");
+  const open = setOpenId;
+
+  return (
+    <MenusContext.Provider value={{ openId, close, open }}>
+      {children}
+    </MenusContext.Provider>
+  );
+}
+
+function Toggle({ id }) {
+  const context = useContext(MenusContext);
+
+  // If context is undefined, create a local state
+  const [localOpenId, setLocalOpenId] = useState("");
+
+  // Use either context values or local values
+  const openId = context?.openId || localOpenId;
+  const close = context?.close || (() => setLocalOpenId(""));
+  const open = context?.open || setLocalOpenId;
+
+  function handleClick() {
+    openId === "" || openId !== id ? open(id) : close();
+  }
+
+  return (
+    <StyledToggle onClick={handleClick}>
+      <HiEllipsisVertical />
+    </StyledToggle>
+  );
+}
+
+function List({ id, children }) {
+  const context = useContext(MenusContext);
+
+  // If context is undefined, create a local state
+  const [localOpenId, setLocalOpenId] = useState("");
+
+  // Use either context values or local values
+  const openId = context?.openId || localOpenId;
+  const close = context?.close || (() => setLocalOpenId(""));
+
+  const ref = useOutsideClick(close);
+
+  // We don't need the scroll event listener anymore since position: absolute
+  // will make the menu move with its parent when scrolling
+
+  if (openId !== id) return null;
+
+  return <StyledList ref={ref}>{children}</StyledList>;
+}
+
+function Button({ children, icon, onClick }) {
+  const context = useContext(MenusContext);
+
+  // If context is undefined, create a local state
+  const [, setLocalOpenId] = useState("");
+
+  // Use either context close or local close
+  const close = context?.close || (() => setLocalOpenId(""));
+
+  function handleClick() {
+    onClick?.();
+    close();
+  }
+
+  return (
+    <li>
+      <StyledButton onClick={handleClick}>
+        {icon}
+        <span>{children}</span>
+      </StyledButton>
+    </li>
+  );
+}
+
+Menus.Menu = Menu;
+Menus.Toggle = Toggle;
+Menus.List = List;
+Menus.Button = Button;
+
+export default Menus;

@@ -9,7 +9,8 @@ import { useDeleteCabin } from "./useDeleteCabin";
 import Modal from "../../ui/Modal-v2";
 import Table from "../../ui/Table";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-import { HiTrash } from "react-icons/hi2";
+import { HiTrash, HiPencil } from "react-icons/hi2";
+import Menus from "../../ui/Menus";
 // const TableRow = styled.div`
 //   display: grid;
 //   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -98,6 +99,16 @@ function CabinRow({ cabin }) {
               <EditCabinForm cabin={cabin} setIsEditing={setIsEditing} />
             </Modal.Window>
           </Modal>
+
+          <Menus>
+            <Menus.Menu>
+              <Menus.Toggle id={cabin.id} />
+              <Menus.List id={cabin.id}>
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </Menus.List>
+            </Menus.Menu>
+          </Menus>
         </TableRowActions>
       </Table.Row>
       {/* {isEditing && (
