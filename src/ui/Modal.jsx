@@ -56,12 +56,14 @@ function Modal({ children, onClose }) {
 
   return (
     <>
-      <StyledModal ref={ref}>
-        <Button onClick={onClose}>
-          <HiXMark />
-        </Button>
-        {children}
-      </StyledModal>
+      <Overlay>
+        <StyledModal ref={ref}>
+          <Button onClick={onClose}>
+            <HiXMark />
+          </Button>
+          {children}
+        </StyledModal>
+      </Overlay>
     </>
   );
 }
