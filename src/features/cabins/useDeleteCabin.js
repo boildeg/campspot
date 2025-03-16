@@ -19,5 +19,15 @@ export const useDeleteCabin = () => {
     onError: (error) => toast.error(error.message),
   });
 
-  return { isDeleting, deleteMutate };
+  // Create a wrapper function that accepts both the id and an optional callback
+  const deleteCabinWithCallback = (id, onSuccessCallback) => {
+    deleteMutate(id, {
+      onSuccess: () => {
+        // Call the callback if provided
+        if (onSuccessCallback) onSuccessCallback();
+      },
+    });
+  };
+
+  return { isDeleting, deleteMutate: deleteCabinWithCallback };
 };

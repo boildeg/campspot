@@ -22,8 +22,10 @@ const StyledConfirmDelete = styled.div`
 
 function ConfirmDelete({ resource, onConfirm, disabled, onCloseModal }) {
   function handleConfirmClick() {
-    onConfirm?.();
-    onCloseModal?.();
+    onConfirm?.(onCloseModal);
+    // Don't close the modal immediately, let it close naturally after the operation completes
+    // or let the parent component handle closing it
+    // onCloseModal?.();
   }
   function handleCloseModal() {
     onCloseModal?.();
