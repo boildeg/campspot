@@ -1,42 +1,66 @@
-# The Campspot
+# Campspot
 
-A comprehensive hotel management application built with React, Vite, and Supabase.
+A modern cabin booking and management platform built with React. This full-featured application showcases my frontend development skills with a focus on responsive design, state management, and API integration.
 
-![The Ccampspot](https://via.placeholder.com/800x400?text=The+campspot)
+![Campspot Screenshot](https://via.placeholder.com/800x400?text=Campspot+Screenshot)
 
-## 🌟 Features
+## 🔗 Live Demo & Links
 
-- **Dashboard**: Real-time statistics and insights about hotel operations
-- **Booking Management**: View, create, and manage guest bookings
-- **Cabin Management**: Manage cabin inventory, pricing, and availability
-- **User Management**: Handle staff accounts and permissions
-- **Settings**: Configure application settings
-- **Authentication**: Secure login system for staff members
+- **Live Demo**: [campspot.yourdomain.com](https://campspot.yourdomain.com)
+- **GitHub**: [github.com/yourusername/campspot](https://github.com/yourusername/campspot)
+
+## 🌟 Key Features
+
+- **Interactive Dashboard**: Real-time statistics with dynamic charts and data visualization
+- **Responsive Booking System**: Mobile-friendly interface for managing reservations
+- **Cabin Management**: CRUD operations with image uploads and real-time updates
+- **User Authentication**: Secure role-based access control system
+- **Dark/Light Mode**: Fully implemented theme switching with styled-components
+- **Form Validation**: Comprehensive client-side validation with React Hook Form
+
+## 💻 Technical Highlights
+
+- Built a **component library** of 20+ reusable UI components
+- Implemented **optimistic UI updates** for a smoother user experience
+- Used **React Query** for efficient server-state management and caching
+- Created custom hooks for **authentication**, **form handling**, and **API calls**
+- Designed a **responsive layout** that works seamlessly on mobile, tablet, and desktop
+- Integrated with **Supabase** for backend services and real-time data
 
 ## 🚀 Tech Stack
 
 - **Frontend**: React 18, React Router v6
 - **State Management**: React Query (TanStack Query)
-- **Styling**: Styled Components
-- **Backend**: Supabase (Authentication, Database)
-- **Build Tool**: Vite
-- **Form Handling**: React Hook Form
-- **Notifications**: React Hot Toast
-- **Icons**: React Icons, Lucide React
-- **Date Handling**: date-fns
+- **Styling**: Styled Components with custom theming
+- **Backend**: Supabase (Authentication, Database, Storage)
+- **Build Tool**: Vite for fast development and optimized production builds
+- **Form Handling**: React Hook Form with Zod validation
+- **Notifications**: React Hot Toast for user feedback
+- **UI Components**: Custom components with React Icons and Lucide React
+- **Date Handling**: date-fns for comprehensive date operations
 
-## 📋 Prerequisites
+## 🧠 What I Learned
+
+- Advanced state management patterns with React Query
+- Building a scalable component architecture
+- Implementing authentication flows with Supabase
+- Creating responsive designs with styled-components
+- Optimizing React performance with memoization and code splitting
+
+## 📋 Getting Started
+
+### Prerequisites
 
 - Node.js (v14 or higher)
 - npm or yarn
 - Supabase account
 
-## 🔧 Installation
+### Installation
 
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/yourusername/campspot.git
+   git clone https://github.com/boildeg/campspot.git
    cd campspot
    ```
 
@@ -82,6 +106,14 @@ src/
 ├── App.jsx       # Main application component
 └── main.jsx      # Application entry point
 ```
+
+## 📱 Responsive Design
+
+The application is fully responsive with breakpoints at:
+
+- Mobile: 480px
+- Tablet: 768px
+- Desktop: 1024px+
 
 ## 🚢 Deployment
 
